@@ -1,1 +1,1 @@
-# EMA
+# Employees management application
