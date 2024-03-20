@@ -26,6 +26,11 @@ namespace EMA.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
+                    b.Property<string>("AccountRoles")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Role");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
@@ -37,10 +42,6 @@ namespace EMA.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("text");
@@ -48,6 +49,30 @@ namespace EMA.Migrations
                     b.HasKey("Email");
 
                     b.ToTable("Account");
+                });
+
+            modelBuilder.Entity("EMA.Models.AccountRole", b =>
+                {
+                    b.Property<string>("AccountEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("text");
+
+                    b.HasKey("AccountEmail", "Role");
+
+                    b.ToTable("AccountRoles");
+                });
+
+            modelBuilder.Entity("EMA.Models.AccountRole", b =>
+                {
+                    b.HasOne("EMA.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 #pragma warning restore 612, 618
         }

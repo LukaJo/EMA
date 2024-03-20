@@ -29,11 +29,32 @@ namespace EMA.Migrations
                 name: "PK_Account",
                 table: "Account",
                 column: "Email");
+
+            migrationBuilder.CreateTable(
+                name: "AccountRoles",
+                columns: table => new
+                {
+                    AccountEmail = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AccountRoles", x => new { x.AccountEmail, x.Role });
+                    table.ForeignKey(
+                        name: "FK_AccountRoles_Account_AccountEmail",
+                        column: x => x.AccountEmail,
+                        principalTable: "Account",
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Cascade);
+                });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AccountRoles");
+
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Account",
                 table: "Account");

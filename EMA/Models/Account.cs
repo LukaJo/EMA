@@ -22,7 +22,16 @@ namespace EMA.Models
         public bool IsActive { get; set; }
 
         [Required]
-        public Role Role;
+        [Column("Role")]
+        public IList<AccountRole> AccountRoles;
 
+    }
+
+    public class AccountRole
+    {
+        public string AccountEmail { get; set; }
+        public Account Account { get; set; }
+
+        public Role Role { get; set; }
     }
 }
