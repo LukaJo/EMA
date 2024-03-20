@@ -1,7 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EMA.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMA.Models
 {
+    [Table("Account")]
     public class Account
     {
         [Required]
@@ -10,10 +13,16 @@ namespace EMA.Models
         public string? Username { get; set; }
         [Required]
         public string? Password { get; set; }
-        [Key]
+
         [EmailAddress]
+        [Required]
+        [Key]
         public string? Email { get; set; }
-        public bool IsActive { get; set; } = false;
+        [Required]
+        public bool IsActive { get; set; }
+
+        [Required]
+        public Role Role;
 
     }
 }
