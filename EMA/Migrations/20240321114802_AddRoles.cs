@@ -5,7 +5,7 @@
 namespace EMA.Migrations
 {
     /// <inheritdoc />
-    public partial class AddRole : Migration
+    public partial class AddRoles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,7 @@ namespace EMA.Migrations
                 column: "Email");
 
             migrationBuilder.CreateTable(
-                name: "AccountRoles",
+                name: "AccountRole",
                 columns: table => new
                 {
                     AccountEmail = table.Column<string>(type: "text", nullable: false),
@@ -39,9 +39,9 @@ namespace EMA.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountRoles", x => new { x.AccountEmail, x.Role });
+                    table.PrimaryKey("PK_AccountRole", x => new { x.AccountEmail, x.Role });
                     table.ForeignKey(
-                        name: "FK_AccountRoles_Account_AccountEmail",
+                        name: "FK_AccountRole_Account_AccountEmail",
                         column: x => x.AccountEmail,
                         principalTable: "Account",
                         principalColumn: "Email",
@@ -53,7 +53,7 @@ namespace EMA.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AccountRoles");
+                name: "AccountRole");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Account",

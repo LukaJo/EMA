@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EMA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240320163832_AddRole")]
-    partial class AddRole
+    [Migration("20240321114802_AddRoles")]
+    partial class AddRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace EMA.Migrations
 
                     b.HasKey("AccountEmail", "Role");
 
-                    b.ToTable("AccountRoles");
+                    b.ToTable("AccountRole");
                 });
 
             modelBuilder.Entity("EMA.Models.AccountRole", b =>

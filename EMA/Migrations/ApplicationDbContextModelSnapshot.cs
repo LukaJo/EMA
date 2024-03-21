@@ -61,7 +61,7 @@ namespace EMA.Migrations
 
                     b.HasKey("AccountEmail", "Role");
 
-                    b.ToTable("AccountRoles");
+                    b.ToTable("AccountRole");
                 });
 
             modelBuilder.Entity("EMA.Models.AccountRole", b =>

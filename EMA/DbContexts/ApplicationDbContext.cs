@@ -16,21 +16,31 @@ namespace EMA.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Use Fluent API to map the enum property to a string column
+            //Fluent API
+            #region Account-Role
+            //Configures AccountEmail and Role as the composite key(foreign keys must be the composite primary key in the joining table)
             modelBuilder.Entity<AccountRole>()
-                .HasKey(ar => new { ar.AccountEmail, ar.Role });
+                        .HasKey(ar => new { ar.AccountEmail, ar.Role });
 
+            ////Set up the many-to-many relationship(with this code Role column is not present in Table Account)
+            //modelBuilder.Entity<AccountRole>()
+            //            .HasOne<Account>(ar => ar.Account)
+            //            .WithMany(a => a.AccountRoles)
+            //            .HasForeignKey(ar => ar.AccountEmail);
+
+            //Convert enum to string when storing in the database(by default is int)
             modelBuilder.Entity<AccountRole>()
-            .Property(e => e.Role)
-            .HasConversion<string>(); // Convert enum to string when storing in the database
+                        .Property(e => e.Role)
+                        .HasConversion<string>();
 
-            // Configure value conversion for ICollection<YourEnum> to ICollection<string>
+            //Configure value conversion for List<AccountRole> to List<string> inside Table Account for column Role(with this code Role column is present in Table Account)
             modelBuilder.Entity<Account>()
-                .Property(e => e.AccountRoles)
-                .HasConversion(
-                    v => string.Join(',', v.Select(r => r)),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => (AccountRole)Enum.Parse(typeof(AccountRole), r)).ToList()
-                );
+                        .Property(e => e.AccountRoles)
+                        .HasConversion(
+                            v => string.Join(',', v.Select(r => r)),
+                            v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => (AccountRole)Enum.Parse(typeof(AccountRole), r)).ToList()
+                        );
+            #endregion
 
         }
     }

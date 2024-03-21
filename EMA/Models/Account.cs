@@ -23,15 +23,14 @@ namespace EMA.Models
 
         [Required]
         [Column("Role")]
-        public IList<AccountRole> AccountRoles;
-
+        public List<AccountRole> AccountRoles;
     }
 
+    [Table("AccountRole")]
     public class AccountRole
     {
         public string AccountEmail { get; set; }
         public Account Account { get; set; }
-
         public Role Role { get; set; }
     }
 }
