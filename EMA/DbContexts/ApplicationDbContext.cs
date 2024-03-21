@@ -13,6 +13,7 @@ namespace EMA.DbContexts
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AccountRole> AccountRoles { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<SkillAssessment> SkillAssessments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,6 +43,14 @@ namespace EMA.DbContexts
                             v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => (AccountRole)Enum.Parse(typeof(AccountRole), r)).ToList()
                         );
             #endregion
+
+            #region SkillAssessment
+            // Configure the one-to-one relationship with SkillAssessmentStatus
+            modelBuilder.Entity<SkillAssessment>()
+                .Property(sa => sa.SkillAssessmentStatus)
+                .HasConversion<string>();
+            #endregion
+
 
         }
     }
