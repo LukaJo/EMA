@@ -23,5 +23,7 @@ namespace EMA.Models
 
         [Required]
         public string? TechnicalManager { get; set; }
+
+        public List<SkillAssessment> SkillAssessments;
     }
 }

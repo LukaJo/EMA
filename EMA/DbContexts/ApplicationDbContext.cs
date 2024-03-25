@@ -84,6 +84,19 @@ namespace EMA.DbContexts
                 .HasForeignKey(st => st.SkillCategoryId); // Foreign key property in SkillType
             #endregion
 
+            #region Relations between entity groups
+            modelBuilder.Entity<SkillAssessment>()
+                        .HasOne(sa => sa.Employee)
+                        .WithMany(e => e.SkillAssessments)
+                        .HasForeignKey(sa => sa.Email);
+
+            modelBuilder.Entity<Skill>()
+                        .HasOne(sa => sa.SkillAssessment)
+                        .WithMany(e => e.Skills)
+                        .HasForeignKey(sa => sa.SkillAssessmentId);
+
+            #endregion
+
             #region Seed
             // Seed data for SkillCategory
             modelBuilder.Entity<SkillCategory>().HasData(

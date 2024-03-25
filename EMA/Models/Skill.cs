@@ -26,5 +26,11 @@ namespace EMA.Models
 
         [ForeignKey(nameof(SkillTypeId))]
         public SkillType SkillType { get; set; }
+
+        [Required]
+        public int SkillAssessmentId { get; set; }
+
+        [ForeignKey(nameof(SkillAssessmentId))]
+        public SkillAssessment SkillAssessment { get; set; }
     }
 }

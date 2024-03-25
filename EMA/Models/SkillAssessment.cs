@@ -21,5 +21,13 @@ namespace EMA.Models
         [Required]
         public SkillAssessmentStatus SkillAssessmentStatus;
 
+        [Required]
+        public string Email { get; set; }
+
+        [ForeignKey(nameof(Email))]
+        public Employee Employee { get; set; }
+
+        public List<Skill> Skills;
+
     }
 }
